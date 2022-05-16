@@ -145,7 +145,7 @@ module "additional_event_subscription" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | ~> 2.87 |
+| azurerm | ~> 3.0 |
 
 ## Modules
 
