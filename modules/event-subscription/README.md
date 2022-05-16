@@ -8,7 +8,7 @@ This Terraform submodule creates an [Azure Eventgrid system topic event subscrip
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | ~> 2.0 |
+| azurerm | ~> 3.0 |
 
 ## Modules
 
