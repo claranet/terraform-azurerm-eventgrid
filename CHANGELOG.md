@@ -1,4 +1,4 @@
-# Unreleased
+# v6.0.1 - 2022-07-08
 
 Fixed
   * AZ-772: Maximum terraform version `v1.2+` for optional attributes
