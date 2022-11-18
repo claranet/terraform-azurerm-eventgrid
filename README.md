@@ -145,7 +145,7 @@ module "additional_event_subscription" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.1 |
+| azurecaf | ~> 1.2, >= 1.2.22 |
 | azurerm | ~> 3.0 |
 
 ## Modules
@@ -159,8 +159,8 @@ module "additional_event_subscription" {
 
 | Name | Type |
 |------|------|
-| [azurecaf_name.eventgrid](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_eventgrid_system_topic.eventgrid_system_topic](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_system_topic) | resource |
+| [azurecaf_name.eventgrid](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
 
