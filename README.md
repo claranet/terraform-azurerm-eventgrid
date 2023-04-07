@@ -53,7 +53,7 @@ module "rg" {
 }
 
 module "logs" {
-  source  = "claranet/run-common/azurerm//modules/logs"
+  source  = "claranet/run/azurerm//modules/logs"
   version = "x.x.x"
 
   resource_group_name = module.rg.resource_group_name
@@ -96,6 +96,17 @@ resource "azurerm_storage_account" "storage_acount" {
   location                 = module.region.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  min_tls_version          = "TLS1_2"
+
+  queue_properties {
+    logging {
+      delete                = true
+      read                  = true
+      write                 = true
+      version               = "1.0"
+      retention_policy_days = 10
+    }
+  }
 }
 
 resource "azurerm_storage_queue" "storage_queue" {
