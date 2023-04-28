@@ -170,7 +170,7 @@ module "additional_event_subscription" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 6.2.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 6.4.1 |
 | event\_subscription | ./modules/event-subscription | n/a |
 
 ## Resources
