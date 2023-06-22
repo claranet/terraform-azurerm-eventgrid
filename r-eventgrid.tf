@@ -34,6 +34,7 @@ module "event_subscription" {
   service_bus_queue_endpoint_id = var.service_bus_queue_endpoint_id
   service_bus_topic_endpoint_id = var.service_bus_topic_endpoint_id
   storage_queue_endpoint        = var.storage_queue_endpoint
+  webhook_endpoint              = var.webhook_endpoint
 
   included_event_types = var.included_event_types
 

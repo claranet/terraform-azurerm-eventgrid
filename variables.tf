@@ -81,6 +81,19 @@ variable "storage_queue_endpoint" {
   default     = null
 }
 
+variable "webhook_endpoint" {
+  description = "Webhook configuration block where the Event Subscription will receive events."
+  type = object({
+    url                               = optional(string, "")
+    base_url                          = optional(string)
+    max_events_per_batch              = optional(number)
+    preferred_batch_size_in_kilobytes = optional(number)
+    active_directory_tenant_id        = optional(string)
+    active_directory_app_id_or_uri    = optional(string)
+  })
+  default = {}
+}
+
 variable "included_event_types" {
   description = "List of applicable event types that need to be part of the event subscription"
   type        = list(string)

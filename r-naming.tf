@@ -6,5 +6,4 @@ data "azurecaf_name" "eventgrid" {
   use_slug      = var.use_caf_naming
   clean_input   = true
   separator     = "-"
-
 }

@@ -24,6 +24,18 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
     }
   }
 
+  dynamic "webhook_endpoint" {
+    for_each = var.webhook_endpoint[*]
+    content {
+      url                               = each.value.url
+      base_url                          = each.value.base_url
+      max_events_per_batch              = each.value.max_events_per_batch
+      preferred_batch_size_in_kilobytes = each.value.preferred_batch_size_in_kilobytes
+      active_directory_tenant_id        = each.value.active_directory_tenant_id
+      active_directory_app_id_or_uri    = each.value.active_directory_app_id_or_uri
+    }
+  }
+
   eventhub_endpoint_id          = try(var.eventhub_endpoint_id, "")
   hybrid_connection_endpoint_id = try(var.hybrid_connection_endpoint_id, "")
   service_bus_queue_endpoint_id = try(var.service_bus_queue_endpoint_id, "")
