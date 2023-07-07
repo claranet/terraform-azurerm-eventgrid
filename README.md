@@ -137,26 +137,6 @@ module "eventgrid" {
     module.logs.log_analytics_workspace_id
   ]
 }
-
-module "additional_event_subscription" {
-  source  = "claranet/eventgrid/azurerm//modules/event-subscription"
-  version = "x.x.x"
-
-  resource_group_name = module.rg.resource_group_name
-  stack               = var.stack
-  environment         = var.environment
-  client_name         = var.client_name
-  location_short      = module.region.location_short
-
-  eventgrid_system_topic_id = module.eventgrid.id
-
-  included_event_types = ["Microsoft.KeyVault.CertificateNewVersionCreated"]
-
-  storage_queue_endpoint = {
-    storage_account_id = azurerm_storage_account.storage_acount.id
-    queue_name         = azurerm_storage_queue.storage_queue.name
-  }
-}
 ```
 
 ## Providers
@@ -218,6 +198,7 @@ module "additional_event_subscription" {
 | storage\_queue\_endpoint | Storage Queue endpoint block configuration where the Event subscription will receive events | `any` | `null` | no |
 | subject\_filter | Block to filter events for an event subscription based on a resource path prefix or sufix | `any` | `null` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
+| webhook\_endpoint | Webhook configuration block where the Event Subscription will receive events. | <pre>object({<br>    url                               = optional(string, "")<br>    base_url                          = optional(string)<br>    max_events_per_batch              = optional(number)<br>    preferred_batch_size_in_kilobytes = optional(number)<br>    active_directory_tenant_id        = optional(string)<br>    active_directory_app_id_or_uri    = optional(string)<br>  })</pre> | `{}` | no |
 
 ## Outputs
 
