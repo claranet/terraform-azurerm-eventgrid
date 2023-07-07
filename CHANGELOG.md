@@ -1,4 +1,4 @@
-# Unreleased
+# v7.2.0 - 2023-07-07
 
 Added
   * AZ-1109: Add support for webhook endpoint
