@@ -137,26 +137,6 @@ module "eventgrid" {
     module.logs.log_analytics_workspace_id
   ]
 }
-
-module "additional_event_subscription" {
-  source  = "claranet/eventgrid/azurerm//modules/event-subscription"
-  version = "x.x.x"
-
-  resource_group_name = module.rg.resource_group_name
-  stack               = var.stack
-  environment         = var.environment
-  client_name         = var.client_name
-  location_short      = module.region.location_short
-
-  eventgrid_system_topic_id = module.eventgrid.id
-
-  included_event_types = ["Microsoft.KeyVault.CertificateNewVersionCreated"]
-
-  storage_queue_endpoint = {
-    storage_account_id = azurerm_storage_account.storage_acount.id
-    queue_name         = azurerm_storage_queue.storage_queue.name
-  }
-}
 ```
 
 ## Providers
