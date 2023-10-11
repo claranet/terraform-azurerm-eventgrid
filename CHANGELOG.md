@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1205: Fix `webhook_endpoint` variable
+
 # v7.2.0 - 2023-07-07
 
 Added

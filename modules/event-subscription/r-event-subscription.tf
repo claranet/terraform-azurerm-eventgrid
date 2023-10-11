@@ -27,12 +27,12 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   dynamic "webhook_endpoint" {
     for_each = var.webhook_endpoint[*]
     content {
-      url                               = each.value.url
-      base_url                          = each.value.base_url
-      max_events_per_batch              = each.value.max_events_per_batch
-      preferred_batch_size_in_kilobytes = each.value.preferred_batch_size_in_kilobytes
-      active_directory_tenant_id        = each.value.active_directory_tenant_id
-      active_directory_app_id_or_uri    = each.value.active_directory_app_id_or_uri
+      url                               = webhook_endpoint.value.url
+      base_url                          = webhook_endpoint.value.base_url
+      max_events_per_batch              = webhook_endpoint.value.max_events_per_batch
+      preferred_batch_size_in_kilobytes = webhook_endpoint.value.preferred_batch_size_in_kilobytes
+      active_directory_tenant_id        = webhook_endpoint.value.active_directory_tenant_id
+      active_directory_app_id_or_uri    = webhook_endpoint.value.active_directory_app_id_or_uri
     }
   }
 
