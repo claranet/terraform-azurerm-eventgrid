@@ -176,6 +176,18 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
     }
   }
 
+  dynamic "delivery_property" {
+    for_each = var.delivery_property
+    iterator = item
+    content {
+      header_name  = item.value.header_name
+      type         = item.value.type
+      value        = item.value.value
+      source_field = item.value.source_field
+      secret       = item.value.secret
+    }
+  }
+
   dynamic "storage_blob_dead_letter_destination" {
     for_each = var.storage_blob_dead_letter_destination[*]
     content {

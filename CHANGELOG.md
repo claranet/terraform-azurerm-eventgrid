@@ -1,5 +1,8 @@
 # Unreleased
 
+Added
+  * AZ-1205: Add `delivery_property` variable
+
 Changed
   * AZ-1205: Update variables definition
 

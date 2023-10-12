@@ -44,6 +44,8 @@ module "event_subscription" {
   subject_filter  = var.subject_filter
   advanced_filter = var.advanced_filter
 
+  delivery_property = var.delivery_property
+
   storage_blob_dead_letter_destination = var.storage_blob_dead_letter_destination
   retry_policy                         = var.retry_policy
   labels                               = var.labels

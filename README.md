@@ -171,6 +171,7 @@ module "eventgrid" {
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_name | Custom Azure Eventgrid name, generated if not set | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
+| delivery\_property | Option to set custom headers on delivered events. | <pre>list(object({<br>    header_name  = string<br>    type         = string<br>    value        = optional(string)<br>    source_field = optional(string)<br>    secret       = optional(bool)<br>  }))</pre> | `[]` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | event\_delivery\_schema | Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`. | `string` | `null` | no |
 | event\_subscription\_custom\_name | Event subscription optional custom name | `string` | `""` | no |

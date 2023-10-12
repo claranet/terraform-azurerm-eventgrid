@@ -191,6 +191,18 @@ variable "advanced_filter" {
   default = null
 }
 
+variable "delivery_property" {
+  description = "Option to set custom headers on delivered events."
+  type = list(object({
+    header_name  = string
+    type         = string
+    value        = optional(string)
+    source_field = optional(string)
+    secret       = optional(bool)
+  }))
+  default = []
+}
+
 variable "storage_blob_dead_letter_destination" {
   description = "Storage blob container that is the destination of the deadletter events."
   type = object({
