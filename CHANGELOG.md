@@ -1,5 +1,8 @@
 # Unreleased
 
+Changed
+  * AZ-1205: Update variables definition
+
 Fixed
   * AZ-1205: Fix `webhook_endpoint` variable
 

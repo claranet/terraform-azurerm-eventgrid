@@ -4,76 +4,60 @@ variable "location_short" {
 }
 
 variable "client_name" {
-  description = "Client name/account used in naming"
+  description = "Client name/account used in naming."
   type        = string
 }
 
 variable "environment" {
-  description = "Project environment"
+  description = "Project environment."
   type        = string
 }
 
 variable "stack" {
-  description = "Project stack name"
+  description = "Project Stack name."
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Resource group name"
+  description = "Resource Group name."
   type        = string
 }
 
 variable "eventgrid_system_topic_id" {
-  description = "Eventgrid system topic ID to attach the event subscription"
+  description = "Event Grid System Topic ID to attach the Event Subscription."
   type        = string
 }
 
 variable "expiration_time_utc" {
-  description = "Specifies the expiration time of the event subscription (Datetime Format RFC 3339)."
+  description = "Specifies the expiration time of the Event Subscription (Datetime Format RFC 3339)."
   type        = string
   default     = null
 }
 
 variable "event_delivery_schema" {
-  description = "Specifies the event delivery schema for the event subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`."
-  type        = string
-  default     = "EventGridSchema"
-}
-
-variable "azure_function_endpoint" {
-  description = "Function where the Event Subscription will receive events"
-  type        = any
-  default     = {}
-}
-
-variable "eventhub_endpoint_id" {
-  description = "ID of the EventHub where the Event subscription will receive events"
-  type        = string
-  default     = null
-}
-
-variable "hybrid_connection_endpoint_id" {
-  description = "ID of the Hybrid Connection where the Event subscription will receive events"
-  type        = string
-  default     = null
-}
-
-variable "service_bus_queue_endpoint_id" {
-  description = "ID of the Service Bus Queue where the Event subscription will receive events"
-  type        = string
-  default     = null
-}
-
-variable "service_bus_topic_endpoint_id" {
-  description = "ID of the Service Bus Topic where the Event subscription will receive events"
+  description = "Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`."
   type        = string
   default     = null
 }
 
 variable "storage_queue_endpoint" {
-  description = "Storage Queue endpoint block configuration where the Event subscription will receive events"
-  type        = any
-  default     = {}
+  description = "Storage Queue endpoint block configuration where the Event subscription will receive events."
+  type = object({
+    storage_account_id                    = string
+    queue_name                            = string
+    queue_message_time_to_live_in_seconds = optional(number)
+  })
+  default = null
+}
+
+variable "azure_function_endpoint" {
+  description = "Function where the Event Subscription will receive events."
+  type = object({
+    function_id                       = string
+    max_events_per_batch              = optional(number)
+    preferred_batch_size_in_kilobytes = optional(number)
+  })
+  default = null
 }
 
 variable "webhook_endpoint" {
@@ -89,44 +73,145 @@ variable "webhook_endpoint" {
   default = null
 }
 
+variable "eventhub_endpoint_id" {
+  description = "ID of the Event Hub where the Event subscription will receive events."
+  type        = string
+  default     = null
+}
+
+variable "hybrid_connection_endpoint_id" {
+  description = "ID of the Hybrid Connection where the Event subscription will receive events."
+  type        = string
+  default     = null
+}
+
+variable "service_bus_queue_endpoint_id" {
+  description = "ID of the Service Bus Queue where the Event subscription will receive events."
+  type        = string
+  default     = null
+}
+
+variable "service_bus_topic_endpoint_id" {
+  description = "ID of the Service Bus Topic where the Event subscription will receive events."
+  type        = string
+  default     = null
+}
+
 variable "included_event_types" {
-  description = "List of applicable event types that need to be part of the event subscription"
+  description = "List of applicable event types that need to be part of the Event Subscription."
   type        = list(string)
   default     = []
 }
 
 variable "subject_filter" {
-  description = "Block to filter events for an event subscription based on a resource path prefix or sufix"
-  type        = any
-  default     = {}
+  description = "Block to filter events for an Event Subscription based on a resource path prefix or suffix."
+  type = object({
+    subject_begins_with = optional(string)
+    subject_ends_with   = optional(string)
+    case_sensitive      = optional(bool)
+  })
+  default = null
 }
 
 variable "advanced_filter" {
-  description = "Filter a value of an event for an event subscription based on a condition"
-  type        = any
-  default     = {}
+  description = "Filter a value of an event for an Event Subscription based on a condition."
+  type = object({
+    bool_equals = optional(object({
+      key   = string
+      value = bool
+    }), null)
+    number_greater_than = optional(object({
+      key   = string
+      value = number
+    }), null)
+    number_greater_than_or_equals = optional(object({
+      key   = string
+      value = number
+    }), null)
+    number_less_than = optional(object({
+      key   = string
+      value = number
+    }), null)
+    number_less_than_or_equals = optional(object({
+      key   = string
+      value = number
+    }), null)
+    number_in = optional(object({
+      key    = string
+      values = list(number)
+    }), null)
+    number_not_in = optional(object({
+      key    = string
+      values = list(number)
+    }), null)
+    string_begins_with = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    string_not_begins_with = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    string_ends_with = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    string_not_ends_with = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    string_contains = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    string_not_contains = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    string_in = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    string_not_in = optional(object({
+      key    = string
+      values = list(string)
+    }), null)
+    is_not_null = optional(object({
+      key = string
+    }), null)
+    is_null_or_undefined = optional(object({
+      key = string
+    }), null)
+  })
+  default = null
 }
 
 variable "storage_blob_dead_letter_destination" {
-  description = "Storage blob container that is the destination of the deadletter events"
-  type        = any
-  default     = {}
+  description = "Storage blob container that is the destination of the deadletter events."
+  type = object({
+    storage_account_id          = string
+    storage_blob_container_name = string
+  })
+  default = null
 }
 
 variable "retry_policy" {
-  description = "Delivery retry attempts for events"
-  type        = any
-  default     = {}
+  description = "Delivery retry attempts for events."
+  type = object({
+    max_delivery_attempts = number
+    event_time_to_live    = number
+  })
+  default = null
 }
 
 variable "labels" {
-  description = "List of labels to assign to the event subscription"
+  description = "List of labels to assign to the Event Subscription."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "advanced_filtering_on_arrays_enabled" {
-  description = "Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value"
+  description = "Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value."
   type        = bool
-  default     = false
+  default     = null
 }
