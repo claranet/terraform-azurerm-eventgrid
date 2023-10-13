@@ -42,7 +42,7 @@ variable "expiration_time_utc" {
 variable "event_delivery_schema" {
   description = "Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`."
   type        = string
-  default     = null
+  default     = "EventGridSchema"
 }
 
 variable "storage_queue_endpoint" {

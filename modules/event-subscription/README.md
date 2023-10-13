@@ -181,7 +181,7 @@ No modules.
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | delivery\_property | Option to set custom headers on delivered events. | <pre>list(object({<br>    header_name  = string<br>    type         = string<br>    value        = optional(string)<br>    source_field = optional(string)<br>    secret       = optional(bool)<br>  }))</pre> | `[]` | no |
 | environment | Project environment. | `string` | n/a | yes |
-| event\_delivery\_schema | Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`. | `string` | `null` | no |
+| event\_delivery\_schema | Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`. | `string` | `"EventGridSchema"` | no |
 | event\_subscription\_custom\_name | Event subscription optional custom name | `string` | `""` | no |
 | eventgrid\_system\_topic\_id | Event Grid System Topic ID to attach the Event Subscription. | `string` | n/a | yes |
 | eventhub\_endpoint\_id | ID of the Event Hub where the Event subscription will receive events. | `string` | `null` | no |
