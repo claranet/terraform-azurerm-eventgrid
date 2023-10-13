@@ -1,4 +1,4 @@
-# Unreleased
+# v7.3.0 - 2023-10-13
 
 Added
   * AZ-1205: Add `delivery_property` variable
