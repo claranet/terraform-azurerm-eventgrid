@@ -164,22 +164,23 @@ module "eventgrid" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| advanced\_filter | Filter a value of an event for an event subscription based on a condition | `any` | `null` | no |
-| advanced\_filtering\_on\_arrays\_enabled | Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value | `bool` | `false` | no |
-| azure\_function\_endpoint | Function where the Event Subscription will receive events | `any` | `null` | no |
-| client\_name | Client name/account used in naming | `string` | n/a | yes |
+| advanced\_filter | Filter a value of an event for an Event Subscription based on a condition. | <pre>object({<br>    bool_equals = optional(object({<br>      key   = string<br>      value = bool<br>    }), null)<br>    number_greater_than = optional(object({<br>      key   = string<br>      value = number<br>    }), null)<br>    number_greater_than_or_equals = optional(object({<br>      key   = string<br>      value = number<br>    }), null)<br>    number_less_than = optional(object({<br>      key   = string<br>      value = number<br>    }), null)<br>    number_less_than_or_equals = optional(object({<br>      key   = string<br>      value = number<br>    }), null)<br>    number_in = optional(object({<br>      key    = string<br>      values = list(number)<br>    }), null)<br>    number_not_in = optional(object({<br>      key    = string<br>      values = list(number)<br>    }), null)<br>    string_begins_with = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    string_not_begins_with = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    string_ends_with = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    string_not_ends_with = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    string_contains = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    string_not_contains = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    string_in = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    string_not_in = optional(object({<br>      key    = string<br>      values = list(string)<br>    }), null)<br>    is_not_null = optional(object({<br>      key = string<br>    }), null)<br>    is_null_or_undefined = optional(object({<br>      key = string<br>    }), null)<br>  })</pre> | `null` | no |
+| advanced\_filtering\_on\_arrays\_enabled | Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value. | `bool` | `null` | no |
+| azure\_function\_endpoint | Function where the Event Subscription will receive events. | <pre>object({<br>    function_id                       = string<br>    max_events_per_batch              = optional(number)<br>    preferred_batch_size_in_kilobytes = optional(number)<br>  })</pre> | `null` | no |
+| client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_name | Custom Azure Eventgrid name, generated if not set | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
-| environment | Project environment | `string` | n/a | yes |
-| event\_delivery\_schema | Specifies the event delivery schema for the event subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`. | `string` | `"EventGridSchema"` | no |
+| delivery\_property | Option to set custom headers on delivered events. | <pre>list(object({<br>    header_name  = string<br>    type         = string<br>    value        = optional(string)<br>    source_field = optional(string)<br>    secret       = optional(bool)<br>  }))</pre> | `[]` | no |
+| environment | Project environment. | `string` | n/a | yes |
+| event\_delivery\_schema | Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`. | `string` | `"EventGridSchema"` | no |
 | event\_subscription\_custom\_name | Event subscription optional custom name | `string` | `""` | no |
-| eventhub\_endpoint\_id | ID of the EventHub where the Event subscription will receive events | `string` | `null` | no |
-| expiration\_time\_utc | Specifies the expiration time of the event subscription (Datetime Format RFC 3339). | `string` | `null` | no |
+| eventhub\_endpoint\_id | ID of the Event Hub where the Event subscription will receive events. | `string` | `null` | no |
+| expiration\_time\_utc | Specifies the expiration time of the Event Subscription (Datetime Format RFC 3339). | `string` | `null` | no |
 | extra\_tags | Additional tags to associate with your Azure Eventgrid. | `map(string)` | `{}` | no |
-| hybrid\_connection\_endpoint\_id | ID of the Hybrid Connection where the Event subscription will receive events | `string` | `null` | no |
-| included\_event\_types | List of applicable event types that need to be part of the event subscription | `list(string)` | `[]` | no |
-| labels | List of labels to assign to the event subscription | `list(string)` | `null` | no |
+| hybrid\_connection\_endpoint\_id | ID of the Hybrid Connection where the Event subscription will receive events. | `string` | `null` | no |
+| included\_event\_types | List of applicable event types that need to be part of the Event Subscription. | `list(string)` | `[]` | no |
+| labels | List of labels to assign to the Event Subscription. | `list(string)` | `[]` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
@@ -188,17 +189,17 @@ module "eventgrid" {
 | logs\_retention\_days | Number of days to keep logs on storage account. | `number` | `30` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
-| resource\_group\_name | Resource group name | `string` | n/a | yes |
-| retry\_policy | Delivery retry attempts for events | `any` | `{}` | no |
-| service\_bus\_queue\_endpoint\_id | ID of the Service Bus Queue where the Event subscription will receive events | `string` | `null` | no |
-| service\_bus\_topic\_endpoint\_id | ID of the Service Bus Topic where the Event subscription will receive events | `string` | `null` | no |
+| resource\_group\_name | Resource Group name. | `string` | n/a | yes |
+| retry\_policy | Delivery retry attempts for events. | <pre>object({<br>    max_delivery_attempts = number<br>    event_time_to_live    = number<br>  })</pre> | `null` | no |
+| service\_bus\_queue\_endpoint\_id | ID of the Service Bus Queue where the Event subscription will receive events. | `string` | `null` | no |
+| service\_bus\_topic\_endpoint\_id | ID of the Service Bus Topic where the Event subscription will receive events. | `string` | `null` | no |
 | source\_resource\_id | ID of the Event Grid System Topic ARM Source. | `string` | n/a | yes |
-| stack | Project stack name | `string` | n/a | yes |
-| storage\_blob\_dead\_letter\_destination | Storage blob container that is the destination of the deadletter events | `any` | `{}` | no |
-| storage\_queue\_endpoint | Storage Queue endpoint block configuration where the Event subscription will receive events | `any` | `null` | no |
-| subject\_filter | Block to filter events for an event subscription based on a resource path prefix or sufix | `any` | `null` | no |
+| stack | Project Stack name. | `string` | n/a | yes |
+| storage\_blob\_dead\_letter\_destination | Storage blob container that is the destination of the deadletter events. | <pre>object({<br>    storage_account_id          = string<br>    storage_blob_container_name = string<br>  })</pre> | `null` | no |
+| storage\_queue\_endpoint | Storage Queue endpoint block configuration where the Event subscription will receive events. | <pre>object({<br>    storage_account_id                    = string<br>    queue_name                            = string<br>    queue_message_time_to_live_in_seconds = optional(number)<br>  })</pre> | `null` | no |
+| subject\_filter | Block to filter events for an Event Subscription based on a resource path prefix or suffix. | <pre>object({<br>    subject_begins_with = optional(string)<br>    subject_ends_with   = optional(string)<br>    case_sensitive      = optional(bool)<br>  })</pre> | `null` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
-| webhook\_endpoint | Webhook configuration block where the Event Subscription will receive events. | <pre>object({<br>    url                               = optional(string, "")<br>    base_url                          = optional(string)<br>    max_events_per_batch              = optional(number)<br>    preferred_batch_size_in_kilobytes = optional(number)<br>    active_directory_tenant_id        = optional(string)<br>    active_directory_app_id_or_uri    = optional(string)<br>  })</pre> | `{}` | no |
+| webhook\_endpoint | Webhook configuration block where the Event Subscription will receive events. | <pre>object({<br>    url                               = string<br>    base_url                          = optional(string)<br>    max_events_per_batch              = optional(number)<br>    preferred_batch_size_in_kilobytes = optional(number)<br>    active_directory_tenant_id        = optional(string)<br>    active_directory_app_id_or_uri    = optional(string)<br>  })</pre> | `null` | no |
 
 ## Outputs
 

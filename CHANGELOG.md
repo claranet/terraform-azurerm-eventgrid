@@ -1,3 +1,14 @@
+# Unreleased
+
+Added
+  * AZ-1205: Add `delivery_property` variable
+
+Changed
+  * AZ-1205: Update variables definition
+
+Fixed
+  * AZ-1205: Fix `webhook_endpoint` variable
+
 # v7.2.0 - 2023-07-07
 
 Added
