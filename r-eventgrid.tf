@@ -26,6 +26,9 @@ module "event_subscription" {
 
   event_subscription_custom_name = var.event_subscription_custom_name
 
+  name_prefix = var.name_prefix
+  name_suffix = var.name_suffix
+
   eventgrid_system_topic_id = azurerm_eventgrid_system_topic.eventgrid_system_topic.id
 
   expiration_time_utc   = var.expiration_time_utc
