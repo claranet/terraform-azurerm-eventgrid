@@ -1,4 +1,4 @@
-# Unreleased
+# v7.3.1 - 2023-11-10
 
 Fixed
   * AZ-1205: Fix naming
