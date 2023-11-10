@@ -24,7 +24,6 @@ variable "custom_name" {
   default     = ""
 }
 
-
 variable "event_subscription_custom_name" {
   description = "Event subscription optional custom name"
   type        = string
