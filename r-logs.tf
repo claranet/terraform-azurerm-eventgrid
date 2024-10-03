@@ -1,6 +1,6 @@
 module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "~> 6.5.0"
+  version = "~> 7.0.0"
 
   resource_id = azurerm_eventgrid_system_topic.eventgrid_system_topic.id
 
