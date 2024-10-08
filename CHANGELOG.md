@@ -1,3 +1,19 @@
+## 7.4.1 (2024-10-08)
+
+### Documentation
+
+* update submodule READMEs with latest template 5e3cc7e
+
+### Miscellaneous Chores
+
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to v7 a2ec844
+* **deps:** update dependency opentofu to v1.8.3 a9ccf31
+* **deps:** update dependency pre-commit to v4 bc4d6c8
+* **deps:** update dependency trivy to v0.56.0 f73cfb0
+* **deps:** update dependency trivy to v0.56.1 d923d2d
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v5 7bdc16a
+* prepare for new examples structure 589aa74
+
 ## 7.4.0 (2024-10-03)
 
 ### Features
