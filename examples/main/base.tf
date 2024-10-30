@@ -15,17 +15,17 @@ module "rg" {
   stack       = var.stack
 }
 
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
-
-  resource_group_name = module.rg.resource_group_name
-  stack               = var.stack
-  environment         = var.environment
-  client_name         = var.client_name
-  location            = module.region.location
-  location_short      = module.region.location_short
-}
+# module "logs" {
+#   source  = "claranet/run/azurerm//modules/logs"
+#   version = "x.x.x"
+#
+#   resource_group_name = module.rg.resource_group_name
+#   stack               = var.stack
+#   environment         = var.environment
+#   client_name         = var.client_name
+#   location            = module.region.location
+#   location_short      = module.region.location_short
+# }
 
 
 data "azurerm_client_config" "current" {
@@ -43,8 +43,8 @@ module "keyvault" {
   location_short      = module.region.location_short
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id,
+    # module.logs.logs_storage_account_id,
+    # module.logs.log_analytics_workspace_id,
   ]
 
   admin_objects_ids = [
