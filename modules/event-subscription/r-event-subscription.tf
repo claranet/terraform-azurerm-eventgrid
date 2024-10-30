@@ -1,5 +1,5 @@
 resource "azurerm_eventgrid_system_topic_event_subscription" "main" {
-  name         = local.event_subscription_name
+  name         = local.name
   system_topic = reverse(split("/", var.eventgrid_system_topic_id))[0]
 
   resource_group_name = var.resource_group_name
@@ -206,4 +206,9 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "main" {
 
   labels                               = var.labels
   advanced_filtering_on_arrays_enabled = var.advanced_filtering_on_arrays_enabled
+}
+
+moved {
+  from = azurerm_eventgrid_system_topic_event_subscription.event_subscription
+  to   = azurerm_eventgrid_system_topic_event_subscription.main
 }

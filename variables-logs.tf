@@ -2,6 +2,7 @@
 
 variable "logs_destinations_ids" {
   type        = list(string)
+  nullable    = false
   description = <<EOD
 List of destination resources IDs for logs diagnostic destination.
 Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.
@@ -21,8 +22,8 @@ variable "logs_metrics_categories" {
   default     = null
 }
 
-variable "custom_diagnostic_settings_name" {
-  description = "Custom name of the diagnostics settings, name will be 'default' if not set."
+variable "diagnostic_settings_custom_name" {
+  description = "Custom name of the diagnostics settings, name will be `default` if not set."
   type        = string
   default     = "default"
 }

@@ -22,3 +22,8 @@ output "resource" {
   description = "Azure Event Grid System Topic resource object."
   value       = azurerm_eventgrid_system_topic.main
 }
+
+output "module_event_subscription" {
+  description = "Event Subscription module output."
+  value       = module.event_subscription
+}
