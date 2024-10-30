@@ -38,7 +38,7 @@ module "eventgrid" {
   source  = "claranet/eventgrid/azurerm"
   version = "x.x.x"
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
   stack               = var.stack
   environment         = var.environment
   client_name         = var.client_name
@@ -62,7 +62,7 @@ module "additional_event_subscription" {
   source  = "claranet/eventgrid/azurerm//modules/event-subscription"
   version = "x.x.x"
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
   stack               = var.stack
   environment         = var.environment
   client_name         = var.client_name
