@@ -1,4 +1,4 @@
-resource "azurerm_eventgrid_system_topic" "eventgrid_system_topic" {
+resource "azurerm_eventgrid_system_topic" "main" {
   name     = local.eventgrid_name
   location = var.location
 
@@ -29,7 +29,7 @@ module "event_subscription" {
   name_prefix = var.name_prefix
   name_suffix = var.name_suffix
 
-  eventgrid_system_topic_id = azurerm_eventgrid_system_topic.eventgrid_system_topic.id
+  eventgrid_system_topic_id = azurerm_eventgrid_system_topic.main.id
 
   expiration_time_utc   = var.expiration_time_utc
   event_delivery_schema = var.event_delivery_schema

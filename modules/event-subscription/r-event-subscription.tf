@@ -1,4 +1,4 @@
-resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription" {
+resource "azurerm_eventgrid_system_topic_event_subscription" "main" {
   name         = local.event_subscription_name
   system_topic = reverse(split("/", var.eventgrid_system_topic_id))[0]
 
