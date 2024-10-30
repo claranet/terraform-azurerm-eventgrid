@@ -9,10 +9,11 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
+  location       = module.region.location
+  location_short = module.region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
 }
 
 # module "logs" {
