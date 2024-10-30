@@ -51,7 +51,7 @@ module "eventgrid" {
   location            = module.region.location
   location_short      = module.region.location_short
 
-  source_resource_id = module.keyvault.key_vault_id
+  source_resource_id = module.keyvault.id
 
   storage_queue_endpoint = {
     storage_account_id = azurerm_storage_account.storage_acount.id
