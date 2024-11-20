@@ -27,3 +27,8 @@ output "module_event_subscription" {
   description = "Event Subscription module output."
   value       = module.event_subscription
 }
+
+output "module_diagnostics" {
+  description = "Diagnostics Settings module output."
+  value       = module.diagnostics
+}

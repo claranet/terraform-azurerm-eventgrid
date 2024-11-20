@@ -59,8 +59,8 @@ module "eventgrid" {
   }
 
   logs_destinations_ids = [
-    # module.logs.logs_storage_account_id,
-    # module.logs.log_analytics_workspace_id
+    module.logs.storage_account_id,
+    module.logs.id,
   ]
 }
 ```
@@ -132,6 +132,7 @@ module "eventgrid" {
 | id | Azure Event Grid System Topic ID. |
 | identity\_principal\_id | Azure Event Grid System Topic identity's principal ID. |
 | metric\_arm\_resource\_id | Azure Event Grid System Topic's metric ARM resource ID. |
+| module\_diagnostics | Diagnostics Settings module output. |
 | module\_event\_subscription | Event Subscription module output. |
 | name | Azure Event Grid System Topic name. |
 | resource | Azure Event Grid System Topic resource object. |
