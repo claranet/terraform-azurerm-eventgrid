@@ -132,7 +132,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| id | Eventgrid subscription ID. |
-| name | Evengrid subscription name. |
-| resource | Eventgrid subscription resource object. |
+| id | Event Grid subscription ID. |
+| name | Event Grid subscription name. |
+| resource | Event Grid subscription resource object. |
 <!-- END_TF_DOCS -->

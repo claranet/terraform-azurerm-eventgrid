@@ -2,11 +2,11 @@
 
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-blue.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![OpenTofu Registry](https://img.shields.io/badge/opentofu-registry-yellow.svg)](https://search.opentofu.org/module/claranet/eventgrid/azurerm/)
 
-This Terraform module creates an [Azure Eventgrid system topic](https://docs.microsoft.com/en-us/azure/event-grid/) with
-an [Azure Eventgrid system topic event subscription](https://docs.microsoft.com/en-us/azure/event-grid/concepts#event-subscriptions)
+This Terraform module creates an [Azure Event Grid system topic](https://docs.microsoft.com/en-us/azure/event-grid/) with
+an [Azure Event Grid system topic event subscription](https://docs.microsoft.com/en-us/azure/event-grid/concepts#event-subscriptions)
 and activated [Diagnostics Logs](https://docs.microsoft.com/en-us/azure/event-grid/enable-diagnostic-logs-topic).
 
-You can create an Azure Eventgrid system topic event subscription without Eventgrid system topic by using the submodule `modules/event-subscription`.
+You can create an Azure Event Grid system topic event subscription without Event Grid system topic by using the submodule `modules/event-subscription`.
 
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
@@ -94,7 +94,7 @@ module "eventgrid" {
 | advanced\_filtering\_on\_arrays\_enabled | Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value. | `bool` | `null` | no |
 | azure\_function\_endpoint | Function where the Event Subscription will receive events. | <pre>object({<br/>    function_id                       = string<br/>    max_events_per_batch              = optional(number)<br/>    preferred_batch_size_in_kilobytes = optional(number)<br/>  })</pre> | `null` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
-| custom\_name | Custom Azure Eventgrid name, generated if not set. | `string` | `""` | no |
+| custom\_name | Custom Azure Event Grid name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | delivery\_property | Option to set custom headers on delivered events. | <pre>list(object({<br/>    header_name  = string<br/>    type         = string<br/>    value        = optional(string)<br/>    source_field = optional(string)<br/>    secret       = optional(bool)<br/>  }))</pre> | `[]` | no |
 | diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |

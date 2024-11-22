@@ -13,7 +13,7 @@ variable "name_suffix" {
 
 # Custom naming override
 variable "custom_name" {
-  description = "Custom Azure Eventgrid name, generated if not set."
+  description = "Custom Azure Event Grid name, generated if not set."
   type        = string
   default     = ""
 }
