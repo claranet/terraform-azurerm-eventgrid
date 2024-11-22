@@ -1,3 +1,35 @@
+## 8.0.0 (2024-11-22)
+
+### ⚠ BREAKING CHANGES
+
+* **AZ-1088:** module v8 structure and updates
+
+### Features
+
+* **AZ-1088:** module v8 structure and updates b8128d0
+
+### Documentation
+
+* **AZ-1088:** add location_short option in rg examples 3720bad
+* **AZ-1088:** comment logs configuration in examples 4f03352
+* **AZ-1088:** fix key vault module calls e9a505c
+* **AZ-1088:** fix rg module calls 8d66b8b
+* update examples 8493f94
+
+### Miscellaneous Chores
+
+* apply suggestion(s) to 3 file(s) e64a6bc
+* **AZ-1088:** apply suggestions 949e7b8
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to v8 f9dc78d
+* **deps:** update dependency opentofu to v1.8.4 ba893c3
+* **deps:** update dependency pre-commit to v4.0.1 0ed62ce
+* **deps:** update dependency tflint to v0.54.0 0d2ff82
+* **deps:** update dependency trivy to v0.56.2 6dd74b7
+* **deps:** update dependency trivy to v0.57.1 2144194
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.1.0 d3af08d
+* **deps:** update tools 30ac45e
+* update examples structure 421883b
+
 ## 7.4.1 (2024-10-08)
 
 ### Documentation
