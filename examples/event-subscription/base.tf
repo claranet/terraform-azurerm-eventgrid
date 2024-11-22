@@ -52,6 +52,7 @@ module "keyvault" {
   ]
 }
 
+
 resource "azurerm_storage_account" "storage_acount" {
   name                     = "examplestorageacc"
   resource_group_name      = module.rg.name

@@ -1,4 +1,4 @@
-resource "azurerm_eventgrid_system_topic" "eventgrid_system_topic" {
+resource "azurerm_eventgrid_system_topic" "main" {
   name     = local.eventgrid_name
   location = var.location
 
@@ -14,6 +14,11 @@ resource "azurerm_eventgrid_system_topic" "eventgrid_system_topic" {
   tags = merge(local.default_tags, var.extra_tags)
 }
 
+moved {
+  from = azurerm_eventgrid_system_topic.eventgrid_system_topic
+  to   = azurerm_eventgrid_system_topic.main
+}
+
 module "event_subscription" {
   source = "./modules/event-subscription"
 
@@ -24,12 +29,12 @@ module "event_subscription" {
 
   resource_group_name = var.resource_group_name
 
-  event_subscription_custom_name = var.event_subscription_custom_name
+  custom_name = var.event_subscription_custom_name
 
   name_prefix = var.name_prefix
   name_suffix = var.name_suffix
 
-  eventgrid_system_topic_id = azurerm_eventgrid_system_topic.eventgrid_system_topic.id
+  eventgrid_system_topic_id = azurerm_eventgrid_system_topic.main.id
 
   expiration_time_utc   = var.expiration_time_utc
   event_delivery_schema = var.event_delivery_schema

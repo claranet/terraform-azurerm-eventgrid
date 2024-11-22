@@ -2,11 +2,11 @@
 
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-blue.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![OpenTofu Registry](https://img.shields.io/badge/opentofu-registry-yellow.svg)](https://search.opentofu.org/module/claranet/eventgrid/azurerm/)
 
-This Terraform module creates an [Azure Eventgrid system topic](https://docs.microsoft.com/en-us/azure/event-grid/) with
-an [Azure Eventgrid system topic event subscription](https://docs.microsoft.com/en-us/azure/event-grid/concepts#event-subscriptions)
+This Terraform module creates an [Azure Event Grid system topic](https://docs.microsoft.com/en-us/azure/event-grid/) with
+an [Azure Event Grid system topic event subscription](https://docs.microsoft.com/en-us/azure/event-grid/concepts#event-subscriptions)
 and activated [Diagnostics Logs](https://docs.microsoft.com/en-us/azure/event-grid/enable-diagnostic-logs-topic).
 
-You can create an Azure Eventgrid system topic event subscription without Eventgrid system topic by using the submodule `modules/event-subscription`.
+You can create an Azure Event Grid system topic event subscription without Event Grid system topic by using the submodule `modules/event-subscription`.
 
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
@@ -39,97 +39,19 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-module "region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
-
-  resource_group_name = module.rg.resource_group_name
-  stack               = var.stack
-  environment         = var.environment
-  client_name         = var.client_name
-  location            = module.region.location
-  location_short      = module.region.location_short
-}
-
-
-data "azurerm_client_config" "current" {
-}
-
-module "keyvault" {
-  source  = "claranet/keyvault/azurerm"
-  version = "x.x.x"
-
-  resource_group_name = module.rg.resource_group_name
-  stack               = var.stack
-  environment         = var.environment
-  client_name         = var.client_name
-  location            = module.region.location
-  location_short      = module.region.location_short
-
-  logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id,
-  ]
-
-  admin_objects_ids = [
-    data.azurerm_client_config.current.object_id
-  ]
-}
-
-
-resource "azurerm_storage_account" "storage_acount" {
-  name                     = "examplestorageacc"
-  resource_group_name      = module.rg.resource_group_name
-  location                 = module.region.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  min_tls_version          = "TLS1_2"
-
-  queue_properties {
-    logging {
-      delete                = true
-      read                  = true
-      write                 = true
-      version               = "1.0"
-      retention_policy_days = 10
-    }
-  }
-}
-
-resource "azurerm_storage_queue" "storage_queue" {
-  name                 = "mysamplequeue"
-  storage_account_name = azurerm_storage_account.storage_acount.name
-}
 
 module "eventgrid" {
   source  = "claranet/eventgrid/azurerm"
   version = "x.x.x"
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
   stack               = var.stack
   environment         = var.environment
   client_name         = var.client_name
   location            = module.region.location
   location_short      = module.region.location_short
 
-  source_resource_id = module.keyvault.key_vault_id
+  source_resource_id = module.keyvault.id
 
   storage_queue_endpoint = {
     storage_account_id = azurerm_storage_account.storage_acount.id
@@ -137,8 +59,8 @@ module "eventgrid" {
   }
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    module.logs.storage_account_id,
+    module.logs.id,
   ]
 }
 ```
@@ -147,21 +69,21 @@ module "eventgrid" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.39 |
+| azurecaf | ~> 1.2.28 |
+| azurerm | ~> 4.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 7.0.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0.0 |
 | event\_subscription | ./modules/event-subscription | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [azurerm_eventgrid_system_topic.eventgrid_system_topic](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_system_topic) | resource |
+| [azurerm_eventgrid_system_topic.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_system_topic) | resource |
 | [azurecaf_name.eventgrid](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
@@ -172,13 +94,13 @@ module "eventgrid" {
 | advanced\_filtering\_on\_arrays\_enabled | Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value. | `bool` | `null` | no |
 | azure\_function\_endpoint | Function where the Event Subscription will receive events. | <pre>object({<br/>    function_id                       = string<br/>    max_events_per_batch              = optional(number)<br/>    preferred_batch_size_in_kilobytes = optional(number)<br/>  })</pre> | `null` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
-| custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
-| custom\_name | Custom Azure Eventgrid name, generated if not set | `string` | `""` | no |
+| custom\_name | Custom Azure Event Grid name, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | delivery\_property | Option to set custom headers on delivered events. | <pre>list(object({<br/>    header_name  = string<br/>    type         = string<br/>    value        = optional(string)<br/>    source_field = optional(string)<br/>    secret       = optional(bool)<br/>  }))</pre> | `[]` | no |
+| diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | event\_delivery\_schema | Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`. | `string` | `"EventGridSchema"` | no |
-| event\_subscription\_custom\_name | Event subscription optional custom name | `string` | `""` | no |
+| event\_subscription\_custom\_name | Event subscription optional custom name. | `string` | `""` | no |
 | eventhub\_endpoint\_id | ID of the Event Hub where the Event subscription will receive events. | `string` | `null` | no |
 | expiration\_time\_utc | Specifies the expiration time of the Event Subscription (Datetime Format RFC 3339). | `string` | `null` | no |
 | extra\_tags | Additional tags to associate with your Azure Eventgrid. | `map(string)` | `{}` | no |
@@ -188,10 +110,10 @@ module "eventgrid" {
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
-| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to specify an Azure EventHub to send logs and metrics to, you need to provide a formated string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character. | `list(string)` | n/a | yes |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to use Azure EventHub as a destination, you must provide a formatted string containing both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
-| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
-| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | resource\_group\_name | Resource Group name. | `string` | n/a | yes |
 | retry\_policy | Delivery retry attempts for events. | <pre>object({<br/>    max_delivery_attempts = number<br/>    event_time_to_live    = number<br/>  })</pre> | `null` | no |
 | service\_bus\_queue\_endpoint\_id | ID of the Service Bus Queue where the Event subscription will receive events. | `string` | `null` | no |
@@ -201,15 +123,17 @@ module "eventgrid" {
 | storage\_blob\_dead\_letter\_destination | Storage blob container that is the destination of the deadletter events. | <pre>object({<br/>    storage_account_id          = string<br/>    storage_blob_container_name = string<br/>  })</pre> | `null` | no |
 | storage\_queue\_endpoint | Storage Queue endpoint block configuration where the Event subscription will receive events. | <pre>object({<br/>    storage_account_id                    = string<br/>    queue_name                            = string<br/>    queue_message_time_to_live_in_seconds = optional(number)<br/>  })</pre> | `null` | no |
 | subject\_filter | Block to filter events for an Event Subscription based on a resource path prefix or suffix. | <pre>object({<br/>    subject_begins_with = optional(string)<br/>    subject_ends_with   = optional(string)<br/>    case_sensitive      = optional(bool)<br/>  })</pre> | `null` | no |
-| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | webhook\_endpoint | Webhook configuration block where the Event Subscription will receive events. | <pre>object({<br/>    url                               = string<br/>    base_url                          = optional(string)<br/>    max_events_per_batch              = optional(number)<br/>    preferred_batch_size_in_kilobytes = optional(number)<br/>    active_directory_tenant_id        = optional(string)<br/>    active_directory_app_id_or_uri    = optional(string)<br/>  })</pre> | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| id | Azure Event Grid System Topic ID |
-| identity\_principal\_id | Azure Event Grid System Topic identity's principal ID |
-| metric\_arm\_resource\_id | Azure Event Grid System Topic's metric ARM resource ID |
-| name | Azure Event Grid System Topic name |
+| id | Azure Event Grid System Topic ID. |
+| identity\_principal\_id | Azure Event Grid System Topic identity's principal ID. |
+| metric\_arm\_resource\_id | Azure Event Grid System Topic's metric ARM resource ID. |
+| module\_diagnostics | Diagnostics Settings module output. |
+| module\_event\_subscription | Event Subscription module output. |
+| name | Azure Event Grid System Topic name. |
+| resource | Azure Event Grid System Topic resource object. |
 <!-- END_TF_DOCS -->
