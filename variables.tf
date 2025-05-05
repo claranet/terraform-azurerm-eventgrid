@@ -121,72 +121,72 @@ variable "subject_filter" {
 variable "advanced_filter" {
   description = "Filter a value of an event for an Event Subscription based on a condition."
   type = object({
-    bool_equals = optional(object({
+    bool_equals = optional(set(object({
       key   = string
       value = bool
-    }), null)
-    number_greater_than = optional(object({
+    })), [])
+    number_greater_than = optional(set(object({
       key   = string
       value = number
-    }), null)
-    number_greater_than_or_equals = optional(object({
+    })), [])
+    number_greater_than_or_equals = optional(set(object({
       key   = string
       value = number
-    }), null)
-    number_less_than = optional(object({
+    })), [])
+    number_less_than = optional(set(object({
       key   = string
       value = number
-    }), null)
-    number_less_than_or_equals = optional(object({
+    })), [])
+    number_less_than_or_equals = optional(set(object({
       key   = string
       value = number
-    }), null)
-    number_in = optional(object({
+    })), [])
+    number_in = optional(set(object({
       key    = string
       values = list(number)
-    }), null)
-    number_not_in = optional(object({
+    })), [])
+    number_not_in = optional(set(object({
       key    = string
       values = list(number)
-    }), null)
-    string_begins_with = optional(object({
+    })), [])
+    string_begins_with = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    string_not_begins_with = optional(object({
+    })), [])
+    string_not_begins_with = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    string_ends_with = optional(object({
+    })), [])
+    string_ends_with = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    string_not_ends_with = optional(object({
+    })), [])
+    string_not_ends_with = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    string_contains = optional(object({
+    })), [])
+    string_contains = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    string_not_contains = optional(object({
+    })), [])
+    string_not_contains = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    string_in = optional(object({
+    })), [])
+    string_in = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    string_not_in = optional(object({
+    })), [])
+    string_not_in = optional(set(object({
       key    = string
       values = list(string)
-    }), null)
-    is_not_null = optional(object({
+    })), [])
+    is_not_null = optional(set(object({
       key = string
-    }), null)
-    is_null_or_undefined = optional(object({
+    })), [])
+    is_null_or_undefined = optional(set(object({
       key = string
-    }), null)
+    })), [])
   })
   default = null
 }

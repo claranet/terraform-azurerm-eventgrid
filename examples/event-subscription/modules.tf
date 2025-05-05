@@ -1,4 +1,3 @@
-
 module "eventgrid" {
   source  = "claranet/eventgrid/azurerm"
   version = "x.x.x"
@@ -15,6 +14,23 @@ module "eventgrid" {
   storage_queue_endpoint = {
     storage_account_id = azurerm_storage_account.storage_acount.id
     queue_name         = azurerm_storage_queue.storage_queue.name
+  }
+
+  advanced_filter = {
+    string_contains = [
+      {
+        key = "data.url"
+        values = [
+          "device-data"
+        ]
+      },
+      {
+        key = "data.url"
+        values = [
+          "lowFrequencyData"
+        ]
+      },
+    ]
   }
 
   logs_destinations_ids = [
