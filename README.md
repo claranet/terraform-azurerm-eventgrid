@@ -39,7 +39,6 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-
 module "eventgrid" {
   source  = "claranet/eventgrid/azurerm"
   version = "x.x.x"
@@ -52,7 +51,6 @@ module "eventgrid" {
   location_short      = module.region.location_short
 
   source_resource_id = module.keyvault.id
-
   storage_queue_endpoint = {
     storage_account_id = azurerm_storage_account.storage_acount.id
     queue_name         = azurerm_storage_queue.storage_queue.name
