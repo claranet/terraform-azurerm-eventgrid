@@ -1,3 +1,42 @@
+## 8.1.0 (2025-05-05)
+
+### Features
+
+* change it to set of object to enable multiple operator in thew same eventhub subscription 67797f2
+
+### Documentation
+
+* 📚️ add example with advanced filters 55bcc25
+* 📚️ update README b999899
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.6 c458e19
+* **deps:** update dependency opentofu to v1.8.8 b67ace3
+* **deps:** update dependency opentofu to v1.9.0 ded241b
+* **deps:** update dependency opentofu to v1.9.1 ae40439
+* **deps:** update dependency pre-commit to v4.1.0 4ea69da
+* **deps:** update dependency pre-commit to v4.2.0 ba4e5ef
+* **deps:** update dependency terraform-docs to v0.20.0 48a393c
+* **deps:** update dependency tflint to v0.55.0 10ddaf8
+* **deps:** update dependency tflint to v0.57.0 76d7a4a
+* **deps:** update dependency trivy to v0.58.1 fb0a1f9
+* **deps:** update dependency trivy to v0.58.2 a301907
+* **deps:** update dependency trivy to v0.59.1 f4401e2
+* **deps:** update dependency trivy to v0.60.0 62287f8
+* **deps:** update dependency trivy to v0.61.1 7453f20
+* **deps:** update dependency trivy to v0.62.0 01d6903
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 0754fbe
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 ca5807e
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 ed69b81
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 9a8c3d5
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 13d25de
+* **deps:** update tools 65c48c3
+* **deps:** update tools 2daf6ca
+* **deps:** update tools ebae4d2
+* update Github templates 43ec691
+* update tflint config for v0.55.0 05164d5
+
 ## 8.0.0 (2024-11-22)
 
 ### ⚠ BREAKING CHANGES
