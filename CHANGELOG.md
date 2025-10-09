@@ -1,3 +1,35 @@
+## 8.1.1 (2025-10-09)
+
+### Code Refactoring
+
+* **deps:** 🔗 update claranet/azurecaf to ~> 1.3.0 🔧 b99511f
+* **deps:** 🔗 update claranet/azurecaf to ~> 1.3.0 🔧 e727829
+
+### Miscellaneous Chores
+
+* **⚙️:** ✏️ update template identifier for MR review 4d504a3
+* 🗑️ remove old commitlint configuration files 21a035f
+* **deps:** 🔗 bump AzureRM provider version to v4.31+ 0705138
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to ~> 8.1.0 4529cb8
+* **deps:** update dependency opentofu to v1.10.0 85b549f
+* **deps:** update dependency opentofu to v1.10.1 ff07990
+* **deps:** update dependency opentofu to v1.10.3 308eff1
+* **deps:** update dependency opentofu to v1.10.6 750cd61
+* **deps:** update dependency tflint to v0.58.0 751cc33
+* **deps:** update dependency tflint to v0.58.1 0f82ea0
+* **deps:** update dependency tflint to v0.59.1 7c997ca
+* **deps:** update dependency trivy to v0.62.1 d9c2cd0
+* **deps:** update dependency trivy to v0.63.0 ad21db7
+* **deps:** update dependency trivy to v0.66.0 3386ad6
+* **deps:** update dependency trivy to v0.67.0 9a39480
+* **deps:** update dependency trivy to v0.67.1 e55dddc
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v6 12a4212
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.1 7b74aa6
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to ~> 8.2.0 c3cdc32
+* **deps:** update tools b3846ed
+* **deps:** update tools d0cf78a
+* **deps:** update tools 0daa2f1
+
 ## 8.1.0 (2025-05-05)
 
 ### Features
