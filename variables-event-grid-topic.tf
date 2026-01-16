@@ -28,7 +28,8 @@ variable "input_mapping_fields" {
     data_version = optional(string)
     subject      = optional(string)
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "input_mapping_default_values" {
@@ -38,7 +39,8 @@ variable "input_mapping_default_values" {
     data_version = optional(string)
     subject      = optional(string)
   }))
-  default = []
+  default  = []
+  nullable = false
 }
 
 variable "public_network_access_enabled" {
