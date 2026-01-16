@@ -13,7 +13,7 @@ resource "azurerm_eventgrid_topic" "main" {
   input_schema = var.input_schema
 
   dynamic "input_mapping_fields" {
-    for_each = var.input_mapping_fields == null ? [] : var.input_mapping_fields
+    for_each = var.input_mapping_fields
     content {
       id           = input_mapping_fields.value.id
       topic        = input_mapping_fields.value.topic
@@ -25,7 +25,7 @@ resource "azurerm_eventgrid_topic" "main" {
   }
 
   dynamic "input_mapping_default_values" {
-    for_each = var.input_mapping_default_values == null ? [] : var.input_mapping_default_values
+    for_each = var.input_mapping_default_values
     content {
       event_type   = input_mapping_default_values.value.event_type
       data_version = input_mapping_default_values.value.data_version
@@ -81,7 +81,7 @@ module "eventgrid_event_subscription" {
   advanced_filter = var.advanced_filter
 
   delivery_identity    = var.eventgrid_delivery_identity
-  delivery_property    = length(var.delivery_property) > 0 ? var.delivery_property[0] : null
+  delivery_property    = one(var.delivery_property)
   dead_letter_identity = var.eventgrid_dead_letter_identity
 
   storage_blob_dead_letter_destination = var.storage_blob_dead_letter_destination
