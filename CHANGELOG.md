@@ -1,3 +1,29 @@
+## 8.1.2 (2026-02-02)
+
+### Documentation
+
+* 📚️ fix examples 1c6b24a
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.7 9ad444b
+* **deps:** update dependency opentofu to v1.11.2 6895e52
+* **deps:** update dependency opentofu to v1.11.3 e7dc042
+* **deps:** update dependency opentofu to v1.11.4 d11e8cb
+* **deps:** update dependency pre-commit to v4.4.0 5e55583
+* **deps:** update dependency pre-commit to v4.5.0 e181ad0
+* **deps:** update dependency pre-commit to v4.5.1 cfd3de8
+* **deps:** update dependency tflint to v0.60.0 77142c6
+* **deps:** update dependency trivy to v0.67.2 c0add9b
+* **deps:** update dependency trivy to v0.68.1 93658d2
+* **deps:** update dependency trivy to v0.68.2 77a6b8c
+* **deps:** update dependency trivy to v0.69.0 9eadb3b
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.10 ddf76b5
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.8 9085361
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.9 b37c645
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.2 8b3360b
+* **deps:** update tools d9e11df
+
 ## 8.1.1 (2025-10-09)
 
 ### Code Refactoring
