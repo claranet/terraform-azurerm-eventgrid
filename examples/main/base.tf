@@ -69,9 +69,16 @@ resource "azurerm_storage_account" "storage_acount" {
       retention_policy_days = 10
     }
   }
+
+  network_rules {
+    default_action             = "Deny"
+    bypass                     = ["AzureServices"]
+    ip_rules                   = []
+    virtual_network_subnet_ids = []
+  }
 }
 
 resource "azurerm_storage_queue" "storage_queue" {
-  name                 = "mysamplequeue"
-  storage_account_name = azurerm_storage_account.storage_acount.name
+  name               = "mysamplequeue"
+  storage_account_id = azurerm_storage_account.storage_acount.id
 }
