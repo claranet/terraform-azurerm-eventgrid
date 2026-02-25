@@ -76,9 +76,17 @@ resource "azurerm_storage_account" "storage_acount" {
     ip_rules                   = []
     virtual_network_subnet_ids = []
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_storage_queue" "storage_queue" {
   name               = "mysamplequeue"
   storage_account_id = azurerm_storage_account.storage_acount.id
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
