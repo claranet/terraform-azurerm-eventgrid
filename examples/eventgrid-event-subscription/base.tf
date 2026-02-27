@@ -47,6 +47,15 @@ resource "azurerm_storage_account" "function_storage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   min_tls_version          = "TLS1_2"
+
+  network_rules {
+    default_action = "Deny"
+    bypass         = ["AzureServices"]
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_linux_function_app" "example" {
@@ -57,6 +66,8 @@ resource "azurerm_linux_function_app" "example" {
   storage_account_name       = azurerm_storage_account.function_storage.name
   storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
   service_plan_id            = azurerm_service_plan.example.id
+
+  https_only = true
 
   site_config {
     application_stack {
@@ -81,10 +92,23 @@ resource "azurerm_storage_account" "deadletter" {
   blob_properties {
     versioning_enabled = true
   }
+
+  network_rules {
+    default_action = "Deny"
+    bypass         = ["AzureServices"]
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_storage_container" "deadletter" {
   name                  = "deadletter"
   storage_account_id    = azurerm_storage_account.deadletter.id
   container_access_type = "private"
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
