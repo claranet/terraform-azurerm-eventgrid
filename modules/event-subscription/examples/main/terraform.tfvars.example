@@ -1,0 +1,17 @@
+# Example configuration for Event Grid System Topic with Event Subscription
+# Copy this file to terraform.tfvars and customize the values
+
+location      = "France Central"
+location_short = "frc"
+client_name   = "mycompany"
+environment   = "dev"
+stack         = "myapp"
+
+resource_group_name = "rg-mycompany-dev-myapp"
+
+# Key Vault source for system topic events
+source_resource_id = "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/rg-mycompany-dev-myapp/providers/Microsoft.KeyVault/vaults/kv-mycompany-dev"
+
+# Storage account for queue endpoint
+storage_account_id = "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/rg-mycompany-dev-myapp/providers/Microsoft.Storage/storageAccounts/stmycompanydev"
+queue_name         = "eventgrid-events"

@@ -1,0 +1,20 @@
+# Example configuration for Event Grid Topic with Event Grid Event Subscription
+# Copy this file to terraform.tfvars and customize the values
+
+location      = "France Central"
+location_short = "frc"
+client_name   = "mycompany"
+environment   = "dev"
+stack         = "myapp"
+
+resource_group_name = "rg-mycompany-dev-myapp"
+
+# Resource group scope for event subscription
+resource_group_id = "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/rg-mycompany-dev-myapp"
+
+# Azure Function for event processing
+function_id = "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/rg-mycompany-dev-myapp/providers/Microsoft.Web/sites/func-mycompany-dev"
+
+# Storage account for dead letter events
+storage_account_id         = "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/rg-mycompany-dev-myapp/providers/Microsoft.Storage/storageAccounts/stmycompanydev"
+dead_letter_container_name = "eventgrid-deadletter"

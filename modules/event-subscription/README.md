@@ -37,6 +37,8 @@ module "eventgrid" {
   source  = "claranet/eventgrid/azurerm"
   version = "x.x.x"
 
+  eventgrid_type = "system_topic"
+
   resource_group_name = module.rg.name
   stack               = var.stack
   environment         = var.environment

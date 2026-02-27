@@ -1,4 +1,6 @@
 resource "azurerm_eventgrid_system_topic" "main" {
+  count = var.eventgrid_type == "system_topic" ? 1 : 0
+
   name     = local.eventgrid_name
   location = var.location
 
@@ -20,6 +22,7 @@ moved {
 }
 
 module "event_subscription" {
+  count  = var.eventgrid_type == "system_topic" ? 1 : 0
   source = "./modules/event-subscription"
 
   location_short = var.location_short
@@ -34,7 +37,7 @@ module "event_subscription" {
   name_prefix = var.name_prefix
   name_suffix = var.name_suffix
 
-  eventgrid_system_topic_id = azurerm_eventgrid_system_topic.main.id
+  eventgrid_system_topic_id = azurerm_eventgrid_system_topic.main[0].id
 
   expiration_time_utc   = var.expiration_time_utc
   event_delivery_schema = var.event_delivery_schema

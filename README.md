@@ -74,15 +74,19 @@ module "eventgrid" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
+| diagnostics\_system\_topic | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
+| diagnostics\_topic | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
 | event\_subscription | ./modules/event-subscription | n/a |
+| eventgrid\_event\_subscription | ./modules/eventgrid-event-subscription | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [azurerm_eventgrid_system_topic.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_system_topic) | resource |
+| [azurerm_eventgrid_topic.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_topic) | resource |
 | [azurecaf_name.eventgrid](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
+| [azurecaf_name.eventgrid_topic](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
 
@@ -96,15 +100,29 @@ module "eventgrid" {
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | delivery\_property | Option to set custom headers on delivered events. | <pre>list(object({<br/>    header_name  = string<br/>    type         = string<br/>    value        = optional(string)<br/>    source_field = optional(string)<br/>    secret       = optional(bool)<br/>  }))</pre> | `[]` | no |
 | diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |
+| enable\_eventgrid\_event\_subscription | Enable the creation of Event Grid Event Subscription for topic type. Only applies when eventgrid\_type is 'topic'. | `bool` | `true` | no |
 | environment | Project environment. | `string` | n/a | yes |
-| event\_delivery\_schema | Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`. | `string` | `"EventGridSchema"` | no |
+| event\_delivery\_schema | Specifies the event delivery schema for the Event Subscription. Possible values include: 'EventGridSchema', 'CloudEventSchemaV1\_0', 'CustomInputSchema'. | `string` | `"EventGridSchema"` | no |
 | event\_subscription\_custom\_name | Event subscription optional custom name. | `string` | `""` | no |
+| eventgrid\_dead\_letter\_identity | Dead letter identity block for the Event Grid Event Subscription. | <pre>object({<br/>    type                   = string<br/>    user_assigned_identity = optional(string)<br/>  })</pre> | `null` | no |
+| eventgrid\_delivery\_identity | Delivery identity block for the Event Grid Event Subscription. | <pre>object({<br/>    type                   = string<br/>    user_assigned_identity = optional(string)<br/>  })</pre> | <pre>{<br/>  "type": "SystemAssigned"<br/>}</pre> | no |
+| eventgrid\_event\_subscription\_custom\_name | Event Grid Event Subscription optional custom name. | `string` | `""` | no |
+| eventgrid\_topic\_custom\_name | Custom Azure Event Grid Topic name, generated if not set. | `string` | `""` | no |
+| eventgrid\_topic\_scope | The scope for the Event Grid Event Subscription. Can be resource group ID or topic ID. | `string` | `null` | no |
+| eventgrid\_type | Type of Event Grid to deploy. Possible values: 'system\_topic' or 'topic'. | `string` | `"system_topic"` | no |
 | eventhub\_endpoint\_id | ID of the Event Hub where the Event subscription will receive events. | `string` | `null` | no |
 | expiration\_time\_utc | Specifies the expiration time of the Event Subscription (Datetime Format RFC 3339). | `string` | `null` | no |
 | extra\_tags | Additional tags to associate with your Azure Eventgrid. | `map(string)` | `{}` | no |
 | hybrid\_connection\_endpoint\_id | ID of the Hybrid Connection where the Event subscription will receive events. | `string` | `null` | no |
+| identity\_ids | The list of User Assigned Managed Identity IDs used for the Event Grid Topic. | `list(string)` | `[]` | no |
+| identity\_type | The type of Managed Identity used for the Event Grid Topic. Possible values include: `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned`, `None`. | `string` | `"SystemAssigned"` | no |
+| inbound\_ip\_rule | Inbound IP rules for the Event Grid Topic. | <pre>list(object({<br/>    ip_mask = string<br/>    action  = optional(string)<br/>  }))</pre> | `[]` | no |
 | included\_event\_types | List of applicable event types that need to be part of the Event Subscription. | `list(string)` | `[]` | no |
+| input\_mapping\_default\_values | Input mapping default values for the Event Grid Topic. | <pre>list(object({<br/>    event_type   = optional(string)<br/>    data_version = optional(string)<br/>    subject      = optional(string)<br/>  }))</pre> | `[]` | no |
+| input\_mapping\_fields | Input mapping fields for the Event Grid Topic. | <pre>list(object({<br/>    id           = optional(string)<br/>    topic        = optional(string)<br/>    event_type   = optional(string)<br/>    event_time   = optional(string)<br/>    data_version = optional(string)<br/>    subject      = optional(string)<br/>  }))</pre> | `[]` | no |
+| input\_schema | The input schema for the Event Grid Topic. | `string` | `"EventGridSchema"` | no |
 | labels | List of labels to assign to the Event Subscription. | `list(string)` | `[]` | no |
+| local\_auth\_enabled | Specifies whether local authentication is enabled for the Event Grid Topic. | `bool` | `true` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
@@ -112,11 +130,12 @@ module "eventgrid" {
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
+| public\_network\_access\_enabled | Specifies whether public network access is enabled for the Event Grid Topic. | `bool` | `true` | no |
 | resource\_group\_name | Resource Group name. | `string` | n/a | yes |
 | retry\_policy | Delivery retry attempts for events. | <pre>object({<br/>    max_delivery_attempts = number<br/>    event_time_to_live    = number<br/>  })</pre> | `null` | no |
 | service\_bus\_queue\_endpoint\_id | ID of the Service Bus Queue where the Event subscription will receive events. | `string` | `null` | no |
 | service\_bus\_topic\_endpoint\_id | ID of the Service Bus Topic where the Event subscription will receive events. | `string` | `null` | no |
-| source\_resource\_id | ID of the Event Grid System Topic ARM Source. | `string` | n/a | yes |
+| source\_resource\_id | ID of the Event Grid System Topic ARM Source. Required when eventgrid\_type is 'system\_topic'. | `string` | `null` | no |
 | stack | Project Stack name. | `string` | n/a | yes |
 | storage\_blob\_dead\_letter\_destination | Storage blob container that is the destination of the deadletter events. | <pre>object({<br/>    storage_account_id          = string<br/>    storage_blob_container_name = string<br/>  })</pre> | `null` | no |
 | storage\_queue\_endpoint | Storage Queue endpoint block configuration where the Event subscription will receive events. | <pre>object({<br/>    storage_account_id                    = string<br/>    queue_name                            = string<br/>    queue_message_time_to_live_in_seconds = optional(number)<br/>  })</pre> | `null` | no |
@@ -127,11 +146,19 @@ module "eventgrid" {
 
 | Name | Description |
 |------|-------------|
+| eventgrid\_topic\_endpoint | Azure Event Grid Topic endpoint. |
+| eventgrid\_topic\_id | Azure Event Grid Topic ID. |
+| eventgrid\_topic\_name | Azure Event Grid Topic name. |
+| eventgrid\_topic\_primary\_access\_key | Azure Event Grid Topic primary access key. |
+| eventgrid\_topic\_resource | Azure Event Grid Topic resource object. |
+| eventgrid\_topic\_secondary\_access\_key | Azure Event Grid Topic secondary access key. |
 | id | Azure Event Grid System Topic ID. |
 | identity\_principal\_id | Azure Event Grid System Topic identity's principal ID. |
 | metric\_arm\_resource\_id | Azure Event Grid System Topic's metric ARM resource ID. |
-| module\_diagnostics | Diagnostics Settings module output. |
+| module\_diagnostics\_system\_topic | Diagnostics Settings module output. |
+| module\_diagnostics\_topic | Diagnostics Settings module output. |
 | module\_event\_subscription | Event Subscription module output. |
+| module\_eventgrid\_event\_subscription | Event Grid Event Subscription module output. |
 | name | Azure Event Grid System Topic name. |
 | resource | Azure Event Grid System Topic resource object. |
 <!-- END_TF_DOCS -->

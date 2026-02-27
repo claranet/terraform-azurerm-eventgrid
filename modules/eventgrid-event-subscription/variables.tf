@@ -1,52 +1,7 @@
-variable "location" {
-  description = "Azure location."
+variable "resource_group_id" {
+  description = "ID of the Resource Group where the Event Subscription will be created."
   type        = string
 }
-
-variable "location_short" {
-  description = "Short string for Azure location."
-  type        = string
-}
-
-variable "client_name" {
-  description = "Client name/account used in naming."
-  type        = string
-}
-
-variable "environment" {
-  description = "Project environment."
-  type        = string
-}
-
-variable "stack" {
-  description = "Project Stack name."
-  type        = string
-}
-
-variable "resource_group_name" {
-  description = "Resource Group name."
-  type        = string
-}
-
-# EventGrid type configuration
-
-variable "eventgrid_type" {
-  description = "Type of Event Grid to deploy. Possible values: 'system_topic' or 'topic'."
-  type        = string
-  default     = "system_topic"
-  validation {
-    condition     = contains(["system_topic", "topic"], var.eventgrid_type)
-    error_message = "eventgrid_type must be either 'system_topic' or 'topic'."
-  }
-}
-
-variable "enable_eventgrid_event_subscription" {
-  description = "Enable the creation of Event Grid Event Subscription for topic type. Only applies when eventgrid_type is 'topic'."
-  type        = bool
-  default     = true
-}
-
-# Event Subscription common variables
 
 variable "expiration_time_utc" {
   description = "Specifies the expiration time of the Event Subscription (Datetime Format RFC 3339)."
@@ -55,19 +10,9 @@ variable "expiration_time_utc" {
 }
 
 variable "event_delivery_schema" {
-  description = "Specifies the event delivery schema for the Event Subscription. Possible values include: 'EventGridSchema', 'CloudEventSchemaV1_0', 'CustomInputSchema'."
+  description = "Specifies the event delivery schema for the Event Subscription. Possible values include: `EventGridSchema`, `CloudEventSchemaV1_0`, `CustomInputSchema`."
   type        = string
   default     = "EventGridSchema"
-}
-
-variable "storage_queue_endpoint" {
-  description = "Storage Queue endpoint block configuration where the Event subscription will receive events."
-  type = object({
-    storage_account_id                    = string
-    queue_name                            = string
-    queue_message_time_to_live_in_seconds = optional(number)
-  })
-  default = null
 }
 
 variable "azure_function_endpoint" {
@@ -76,6 +21,40 @@ variable "azure_function_endpoint" {
     function_id                       = string
     max_events_per_batch              = optional(number)
     preferred_batch_size_in_kilobytes = optional(number)
+  })
+  default = null
+}
+
+variable "eventhub_endpoint_id" {
+  description = "Event Hub where the Event Subscription will receive events."
+  type        = string
+  default     = null
+}
+
+variable "hybrid_connection_endpoint_id" {
+  description = "Hybrid Connection where the Event Subscription will receive events."
+  type        = string
+  default     = null
+}
+
+variable "service_bus_queue_endpoint_id" {
+  description = "Service Bus Queue where the Event Subscription will receive events."
+  type        = string
+  default     = null
+}
+
+variable "service_bus_topic_endpoint_id" {
+  description = "Service Bus Topic where the Event Subscription will receive events."
+  type        = string
+  default     = null
+}
+
+variable "storage_queue_endpoint" {
+  description = "Storage Queue endpoint block configuration where the Event subscription will receive events."
+  type = object({
+    storage_account_id                    = string
+    queue_name                            = string
+    queue_message_time_to_live_in_seconds = optional(number)
   })
   default = null
 }
@@ -93,38 +72,14 @@ variable "webhook_endpoint" {
   default = null
 }
 
-variable "eventhub_endpoint_id" {
-  description = "ID of the Event Hub where the Event subscription will receive events."
-  type        = string
-  default     = null
-}
-
-variable "hybrid_connection_endpoint_id" {
-  description = "ID of the Hybrid Connection where the Event subscription will receive events."
-  type        = string
-  default     = null
-}
-
-variable "service_bus_queue_endpoint_id" {
-  description = "ID of the Service Bus Queue where the Event subscription will receive events."
-  type        = string
-  default     = null
-}
-
-variable "service_bus_topic_endpoint_id" {
-  description = "ID of the Service Bus Topic where the Event subscription will receive events."
-  type        = string
-  default     = null
-}
-
 variable "included_event_types" {
-  description = "List of applicable event types that need to be part of the Event Subscription."
+  description = "A list of event types that should be included in the Event Subscription."
   type        = list(string)
-  default     = []
+  default     = null
 }
 
 variable "subject_filter" {
-  description = "Block to filter events for an Event Subscription based on a resource path prefix or suffix."
+  description = "Subject filter block to filter events for the Event Subscription."
   type = object({
     subject_begins_with = optional(string)
     subject_ends_with   = optional(string)
@@ -134,7 +89,7 @@ variable "subject_filter" {
 }
 
 variable "advanced_filter" {
-  description = "Filter a value of an event for an Event Subscription based on a condition."
+  description = "Advanced filter block to filter events for the Event Subscription. More than one block can be specified."
   type = object({
     bool_equals = optional(set(object({
       key   = string
@@ -161,6 +116,14 @@ variable "advanced_filter" {
       values = list(number)
     })), [])
     number_not_in = optional(set(object({
+      key    = string
+      values = list(number)
+    })), [])
+    number_in_range = optional(set(object({
+      key    = string
+      values = list(number)
+    })), [])
+    number_not_in_range = optional(set(object({
       key    = string
       values = list(number)
     })), [])
@@ -206,20 +169,38 @@ variable "advanced_filter" {
   default = null
 }
 
+variable "delivery_identity" {
+  description = "Delivery identity block for the Event Subscription."
+  type = object({
+    type                   = string
+    user_assigned_identity = optional(string)
+  })
+  default = null
+}
+
 variable "delivery_property" {
-  description = "Option to set custom headers on delivered events."
-  type = list(object({
+  description = "Delivery property block for the Event Subscription."
+  type = object({
     header_name  = string
     type         = string
     value        = optional(string)
     source_field = optional(string)
-    secret       = optional(bool)
-  }))
-  default = []
+    secret       = optional(string)
+  })
+  default = null
+}
+
+variable "dead_letter_identity" {
+  description = "Dead letter identity block for the Event Subscription."
+  type = object({
+    type                   = string
+    user_assigned_identity = optional(string)
+  })
+  default = null
 }
 
 variable "storage_blob_dead_letter_destination" {
-  description = "Storage blob container that is the destination of the deadletter events."
+  description = "Storage Blob dead letter destination block for the Event Subscription."
   type = object({
     storage_account_id          = string
     storage_blob_container_name = string
@@ -228,7 +209,7 @@ variable "storage_blob_dead_letter_destination" {
 }
 
 variable "retry_policy" {
-  description = "Delivery retry attempts for events."
+  description = "Retry policy block for the Event Subscription."
   type = object({
     max_delivery_attempts = number
     event_time_to_live    = number
@@ -243,7 +224,7 @@ variable "labels" {
 }
 
 variable "advanced_filtering_on_arrays_enabled" {
-  description = "Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value."
+  description = "A boolean flag which enables advanced filtering on arrays."
   type        = bool
-  default     = null
+  default     = false
 }
