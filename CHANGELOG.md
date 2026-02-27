@@ -1,3 +1,23 @@
+## 8.2.0 (2026-02-27)
+
+### Features
+
+* **AZ-1616:** Add eventgrid_topic resource 3683be2
+
+### Bug Fixes
+
+* trivy and example code ca42ffc
+
+### Code Refactoring
+
+* ♻️ fix syntax ba25bb5
+
+### Miscellaneous Chores
+
+* apply suggestion(s) to 2 file(s) b9415f2
+* **deps:** 🔗 bump tflint rules version e98ef0c
+* **deps:** update dependency opentofu to v1.11.5 5742c50
+
 ## 8.1.3 (2026-02-25)
 
 ### Code Refactoring
