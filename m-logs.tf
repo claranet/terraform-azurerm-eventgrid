@@ -2,7 +2,7 @@ module "diagnostics_system_topic" {
   count = var.eventgrid_type == "system_topic" && length(var.logs_destinations_ids) > 0 ? 1 : 0
 
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "~> 8.2.0"
+  version = "~> 8.2"
 
   resource_id = azurerm_eventgrid_system_topic.main[0].id
 
@@ -24,7 +24,7 @@ module "diagnostics_topic" {
   count = var.eventgrid_type == "topic" && length(var.logs_destinations_ids) > 0 ? 1 : 0
 
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "~> 8.2.0"
+  version = "~> 8.2"
 
   resource_id = azurerm_eventgrid_topic.main[0].id
 

@@ -74,8 +74,8 @@ module "eventgrid" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics\_system\_topic | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
-| diagnostics\_topic | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
+| diagnostics\_system\_topic | claranet/diagnostic-settings/azurerm | ~> 8.2 |
+| diagnostics\_topic | claranet/diagnostic-settings/azurerm | ~> 8.2 |
 | event\_subscription | ./modules/event-subscription | n/a |
 | eventgrid\_event\_subscription | ./modules/eventgrid-event-subscription | n/a |
 
