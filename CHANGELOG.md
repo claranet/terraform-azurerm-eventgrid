@@ -1,3 +1,14 @@
+## 8.2.1 (2026-03-02)
+
+### Bug Fixes
+
+* 🐛 log module version 2517d14
+
+### Miscellaneous Chores
+
+* 🔧 add moved blocks ac7ef45
+* **deps:** update dependency trivy to v0.69.2 e6b951f
+
 ## 8.2.0 (2026-02-27)
 
 ### Features
