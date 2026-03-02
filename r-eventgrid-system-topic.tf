@@ -21,6 +21,11 @@ moved {
   to   = azurerm_eventgrid_system_topic.main
 }
 
+moved {
+  from = azurerm_eventgrid_system_topic.main
+  to   = azurerm_eventgrid_system_topic.main[0]
+}
+
 module "event_subscription" {
   count  = var.eventgrid_type == "system_topic" ? 1 : 0
   source = "./modules/event-subscription"
@@ -61,4 +66,9 @@ module "event_subscription" {
   retry_policy                         = var.retry_policy
   labels                               = var.labels
   advanced_filtering_on_arrays_enabled = var.advanced_filtering_on_arrays_enabled
+}
+
+moved {
+  from = module.event_subscription
+  to   = module.event_subscription[0]
 }

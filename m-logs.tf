@@ -15,6 +15,11 @@ module "diagnostics_system_topic" {
   name_suffix = var.name_suffix
 }
 
+moved {
+  from = module.diagnostics
+  to   = module.diagnostics_system_topic[0]
+}
+
 module "diagnostics_topic" {
   count = var.eventgrid_type == "topic" && length(var.logs_destinations_ids) > 0 ? 1 : 0
 
