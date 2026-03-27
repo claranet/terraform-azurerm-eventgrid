@@ -1,3 +1,18 @@
+## 8.2.2 (2026-03-27)
+
+### Bug Fixes
+
+* **trivy:** 🐛 drop unsafe trivy pre-commit 🔒️ b452565
+
+### Code Refactoring
+
+* update module structure and Github actions 👷 6e5baf4
+
+### Miscellaneous Chores
+
+* **AI:** 🤖 add AI Agents instructions for Contributing 6bde6be
+* **deps:** update dependency trivy to v0.69.3 74f9651
+
 ## 8.2.1 (2026-03-02)
 
 ### Bug Fixes
