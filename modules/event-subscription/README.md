@@ -100,7 +100,7 @@ module "additional_event_subscription" {
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | azurecaf | >= 1.2.28 |
 | azurerm | ~> 4.0 |
 
@@ -111,14 +111,14 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [azurerm_eventgrid_system_topic_event_subscription.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_system_topic_event_subscription) | resource |
 | [azurecaf_name.eventgrid_event_sub](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | advanced\_filter | Filter a value of an event for an Event Subscription based on a condition. | <pre>object({<br/>    bool_equals = optional(set(object({<br/>      key   = string<br/>      value = bool<br/>    })), [])<br/>    number_greater_than = optional(set(object({<br/>      key   = string<br/>      value = number<br/>    })), [])<br/>    number_greater_than_or_equals = optional(set(object({<br/>      key   = string<br/>      value = number<br/>    })), [])<br/>    number_less_than = optional(set(object({<br/>      key   = string<br/>      value = number<br/>    })), [])<br/>    number_less_than_or_equals = optional(set(object({<br/>      key   = string<br/>      value = number<br/>    })), [])<br/>    number_in = optional(set(object({<br/>      key    = string<br/>      values = list(number)<br/>    })), [])<br/>    number_not_in = optional(set(object({<br/>      key    = string<br/>      values = list(number)<br/>    })), [])<br/>    string_begins_with = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    string_not_begins_with = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    string_ends_with = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    string_not_ends_with = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    string_contains = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    string_not_contains = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    string_in = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    string_not_in = optional(set(object({<br/>      key    = string<br/>      values = list(string)<br/>    })), [])<br/>    is_not_null = optional(set(object({<br/>      key = string<br/>    })), [])<br/>    is_null_or_undefined = optional(set(object({<br/>      key = string<br/>    })), [])<br/>  })</pre> | `null` | no |
 | advanced\_filtering\_on\_arrays\_enabled | Specifies whether advanced filters should be evaluated against an array of values instead of expecting a singular value. | `bool` | `null` | no |
 | azure\_function\_endpoint | Function where the Event Subscription will receive events. | <pre>object({<br/>    function_id                       = string<br/>    max_events_per_batch              = optional(number)<br/>    preferred_batch_size_in_kilobytes = optional(number)<br/>  })</pre> | `null` | no |
@@ -149,7 +149,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | id | Event Grid subscription ID. |
 | name | Event Grid subscription name. |
 | resource | Event Grid subscription resource object. |
