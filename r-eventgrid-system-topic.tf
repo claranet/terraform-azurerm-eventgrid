@@ -6,8 +6,8 @@ resource "azurerm_eventgrid_system_topic" "main" {
 
   resource_group_name = var.resource_group_name
 
-  source_arm_resource_id = var.source_resource_id
-  topic_type             = local.topic_type
+  source_resource_id = var.source_resource_id
+  topic_type         = local.topic_type
 
   identity {
     type = "SystemAssigned"
