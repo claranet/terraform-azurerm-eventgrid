@@ -1,3 +1,23 @@
+## 8.2.3 (2026-05-29)
+
+### Bug Fixes
+
+* **eventgrid:** replace deprecated source_arm_resource_id with source_resource_id 🐛 a6a26ce
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 update mise conf for OpenTofu c3f3351
+* **deps:** bump azurerm provider minimum version to 4.40 6a4951f
+* **deps:** update dependency opentofu to v1.11.7 ad6bb22
+* **deps:** update dependency opentofu to v1.12.0 64608e3
+* **deps:** update dependency terraform-docs to v0.23.0 d5d71db
+* **deps:** update dependency terraform-docs to v0.24.0 b0a05ca
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.3.0 16eb021
+* **deps:** update tools 4e7e7c9
+* **deps:** update tools 50dad36
+* **pre-commit:** 🔧 move to prek 42cabff
+* **tfdocs:** bump tfdocs to v0.22 🔧 71b8f6b
+
 ## 8.2.2 (2026-03-27)
 
 ### Bug Fixes
