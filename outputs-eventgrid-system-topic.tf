@@ -21,6 +21,7 @@ output "metric_arm_resource_id" {
 output "resource" {
   description = "Azure Event Grid System Topic resource object."
   value       = var.eventgrid_type == "system_topic" ? azurerm_eventgrid_system_topic.main[0] : null
+  sensitive   = true
 }
 
 # Module outputs
