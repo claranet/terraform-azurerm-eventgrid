@@ -1,3 +1,13 @@
+## 8.2.4 (2026-06-02)
+
+### Bug Fixes
+
+* 🐛 default output `resource` now require sensitive with OpenTofu 1.12+ 94e4302
+
+### Miscellaneous Chores
+
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.4.0 c3c9c0e
+
 ## 8.2.3 (2026-05-29)
 
 ### Bug Fixes
