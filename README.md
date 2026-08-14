@@ -13,6 +13,7 @@ You can create an Azure Event Grid system topic event subscription without Event
 
 | Module version | Terraform version | OpenTofu version | AzureRM version |
 | -------------- | ----------------- | ---------------- | --------------- |
+| >= 9.x.x       | **Unverified**    | 1.12.x           | >= 5.0          |
 | >= 8.x.x       | **Unverified**    | 1.8.x            | >= 4.0          |
 | >= 7.x.x       | 1.3.x             |                  | >= 3.0          |
 | >= 6.x.x       | 1.x               |                  | >= 3.0          |
