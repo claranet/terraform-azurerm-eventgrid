@@ -15,7 +15,7 @@ output "identity_principal_id" {
 
 output "metric_arm_resource_id" {
   description = "Azure Event Grid System Topic's metric ARM resource ID."
-  value       = var.eventgrid_type == "system_topic" ? azurerm_eventgrid_system_topic.main[0].metric_arm_resource_id : null
+  value       = var.eventgrid_type == "system_topic" ? azurerm_eventgrid_system_topic.main[0].metric_resource_id : null
 }
 
 output "resource" {

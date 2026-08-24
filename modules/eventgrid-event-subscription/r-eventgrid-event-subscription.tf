@@ -15,10 +15,10 @@ resource "azurerm_eventgrid_event_subscription" "main" {
 
   }
 
-  eventhub_endpoint_id          = var.eventhub_endpoint_id
-  hybrid_connection_endpoint_id = var.hybrid_connection_endpoint_id
-  service_bus_queue_endpoint_id = var.service_bus_queue_endpoint_id
-  service_bus_topic_endpoint_id = var.service_bus_topic_endpoint_id
+  eventhub_id          = var.eventhub_endpoint_id
+  hybrid_connection_id = var.hybrid_connection_endpoint_id
+  service_bus_queue_id = var.service_bus_queue_endpoint_id
+  service_bus_topic_id = var.service_bus_topic_endpoint_id
 
   dynamic "storage_queue_endpoint" {
     for_each = var.storage_queue_endpoint[*]

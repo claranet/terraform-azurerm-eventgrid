@@ -60,16 +60,6 @@ resource "azurerm_storage_account" "storage_acount" {
   account_replication_type = "LRS"
   min_tls_version          = "TLS1_2"
 
-  queue_properties {
-    logging {
-      delete                = true
-      read                  = true
-      write                 = true
-      version               = "1.0"
-      retention_policy_days = 10
-    }
-  }
-
   network_rules {
     default_action             = "Deny"
     bypass                     = ["AzureServices"]
@@ -79,6 +69,18 @@ resource "azurerm_storage_account" "storage_acount" {
 
   lifecycle {
     prevent_destroy = true
+  }
+}
+
+resource "azurerm_storage_account_queue_properties" "storage_acount" {
+  storage_account_id = azurerm_storage_account.storage_acount.id
+
+  logging {
+    delete                = true
+    read                  = true
+    write                 = true
+    version               = "1.0"
+    retention_policy_days = 10
   }
 }
 

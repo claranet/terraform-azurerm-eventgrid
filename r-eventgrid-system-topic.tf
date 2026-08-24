@@ -54,8 +54,7 @@ module "event_subscription" {
   hybrid_connection_endpoint_id = var.hybrid_connection_endpoint_id
   service_bus_queue_endpoint_id = var.service_bus_queue_endpoint_id
   service_bus_topic_endpoint_id = var.service_bus_topic_endpoint_id
-
-  included_event_types = var.included_event_types
+  included_event_types          = var.included_event_types
 
   subject_filter  = var.subject_filter
   advanced_filter = var.advanced_filter
